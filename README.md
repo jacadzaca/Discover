@@ -11,13 +11,13 @@ This means:
 * Extensible
 * Machine Readable
 
-Follow these steps and you're online!
+Follow these steps to enter the network:
 
 1) Grab the [example json file](https://codeberg.org/onasaft/Discover/src/branch/master/Client/.well-known/discover)
 2) [Check out the docs](https://codeberg.org/onasaft/Discover/src/branch/master/Docs/README.md)
 3) Modify it with your data
 4) Serve that file from **your.website/.well-known/discover**
-5) Enable CORS for your website in [/etc/nginx/sites-enabled/your.website](/Docs/Hosting/nginx.md)
+5) Enable CORS for your website in [/etc/nginx/sites-enabled/your.website](https://codeberg.org/onasaft/Discover/src/branch/master/Docs/Hosting/nginx.md)
 6) Feel free to test your setup by visiting:
 https://tomfasano.net/discover?url=your.website
 
