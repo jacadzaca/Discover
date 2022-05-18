@@ -8,80 +8,95 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    align-items: center;
     font-size: 100%;
 }
 img {
     max-width: 15rem;
 }
-.discover {
+div {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.interverse {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100vw;
     font-size: 1.5rem;
 }
-#discover-details {
+#interverse-details {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-#discover-details * {
+#interverse-details * {
     margin: 0.25rem;
 }
-#discover-contact {
+#interverse-contact {
     word-wrap: break-word;
 }
-#discover-details img {
+#interverse-details img {
     max-width: 15rem;
     max-height: 15rem;
 }
-#discover-resources {
+#interverse-resources {
     flex-wrap: wrap;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
 }
-.discover-resource {
+.interverse-resource {
     padding: 2rem;
     max-width: 15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.discover-resource-icon {
+.interverse-resource-icon {
     height: 3rem;
     width: 3rem;
 }
-#discover-groups {
+#interverse-groups {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
 }
-.discover-group {
+.interverse-group {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: center;
 }
-#discover-connections {
+h1 {
+    text-align: center;
+}
+#interverse-connections {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-evenly;
 }
-#discover-groups,
-#discover-connections {
+#interverse-groups,
+#interverse-connections {
     margin-left: 10vw;
     margin-right: 10vw;
 }
-.discover-connection {
+.interverse-connection {
     width: fit-content;
-    border: 0.15rem solid var(--theme-accent-color);
     padding: 1rem;
     margin: 0.25rem;
 }
-.discover-connection-preview {
+.interverse-connection-preview {
     display: flex;
     flex-direction: column;
 }
-.discover-widget {
+.interverse-widget {
     width: 50vw;
     height: 60vh;
 }
