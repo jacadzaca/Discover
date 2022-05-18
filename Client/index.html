@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/discover/theme.css">
+    <title>Discovery</title>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="/discover/helper.js"></script>
+</head>
+<body>
+    <div class="discover" x-data x-if="Alpine.store('data')">
+        <div id="discover-details">
+            <img x-bind:src="Alpine.store('data')['image']">
+            <div id="discover-contact">
+                <h1 x-text="Alpine.store('data')['name']"></h1>
+                <template x-for="key in Object.keys(Alpine.store('data')['contact'])">
+                    <p>
+                        <strong x-text="key"></strong>
+                        <span x-text="Alpine.store('data')['contact'][key]"></span>
+                    </p>             
+                </template>
+            </div>
+        </div>
+        <section id="discover-resource-groups">
+            <template x-for="(group,name) in Alpine.store('data')['resource_groups']">
+                <div>
+                    <h1 x-text="name"></h1>
+                    <section class="discover-group">
+                        <template x-for="resource in group">
+                            <a x-bind:href="resource['location']">
+                                <div class="discover-resource">
+                                    <template x-if="resource['icon'] !=''">
+                                        <img class="discover-resource-icon" x-bind:src="resource['icon']">
+                                        </template>
+            <h2 x-text="resource['label']"></h2>
+            <p x-text="resource['description']"></p>
+    </div>
+    </a>
+    </template>
+    </section>
+    </div>
+    </template>
+    </section>
+    <div id="discover-resources">
+        <template x-for="resource in Alpine.store('data')['resources']">
+                <a x-bind:href="resource['location']">
+                <div class="discover-resource">
+                    <template x-if="resource['icon'] !=''">
+                        <img class="discover-resource-icon" x-bind:src="resource['icon']">
+                    </template>
+        <h2 x-text="resource['label']"></h2>
+        <p x-text="resource['description']"></p>
+    </div>
+    </a>
+    </template>
+    </div>
+    <div id="discover-groups">
+        <template x-for="(group,name) in Alpine.store('data')['connection_groups']">
+                <div>
+                    <h3 x-text="name"></h3>
+                    <div class="discover-group">
+                        <template x-for="link in group">
+                            <div class="discover-connection" x-data="{connected:false">
+                                <template x-if="Alpine.store(link)['name'] !=''">
+                                    <div class='discover-connection-preview' x-on:click="initialize(link+'/.well-known/discover')">
+                                        <h3 x-text="Alpine.store(link)['name']"></h3>
+                                        <img x-bind:src="Alpine.store(link)['image']">
+                                        <a x-bind:href="link" x-text="link"></a>
+                                    </div>
+                                </template>
+        <template x-if="Alpine.store(link) == undefined">
+                                    <div>
+                                        <a x-bind:href="link" x-text="link">
+                                        </a>
+                                        
+                                    </div>
+    
+                                </template>
+    </div>
+    </template>
+    </div>
+    </div>
+    </template>
+    </div>
+    <h2>Links</h2>
+    <div id="discover-connections">
+        <template x-for="connection in Alpine.store('data')['connections']">
+                <div class="discover-connection" >
+                    <template x-if="Alpine.store(connection)['version'] >=0">
+                        <div x-on:click="initialize(connection+'/.well-known/discover')">
+                            <h3 x-text="Alpine.store(connection)['name']"></h3>
+                           <template x-if="Alpine.store(connection)['image']!=''">
+                                <img x-bind:src="Alpine.store(connection)['image']">
+                            </template>
+    </div>
+    </template>
+    <template x-if="name == ''">
+                        <a x-bind:href="connection" x-text="connection"></a>
+                    </template>
+    </div>
+    </template>
+    </div>
+    <div id="discover-contact">
+        <template x-for="contact in Alpine.store('data')['contact']">
+                <div class="discover-contact">
+                    
+                </div>
+            </template>
+    </div>
+    </div>
+    <script>
+        var main_url = "/.well-known/discover";
+        if (getUrlParameter('s') && getUrlParameter("url")) {
+            var uri = "";
+            main_url = getUrlParameter('s') + "://" + getUrlParameter("url") + '/.well-known/discover';
+        } else {
+            if (getUrlParameter('url')) {
+                main_url = "https://" + getUrlParameter('url') + '/.well-known/discover';
+            }
+        }
+        document.addEventListener('alpine:init', function() {
+            initialize(main_url);
+        });
+        function initialize(url) {
+            Alpine.store("data", {});
+            fetchdata(url, function(e) {
+                data = JSON.parse(e.target.response);
+                raw_data = JSON.parse(e.target.response);
+                Alpine.store("data", data);
+                var connections = raw_data['connections'];
+                for (group in data['connection_groups']) {
+                    for (link in data['connection_groups'][group]) {
+                        connections.push(data['connection_groups'][group][link]);
+                    }
+                }
+                for (var i = 0; i < connections.length; i++) {
+                    fetchdata(connections[i] + '/.well-known/discover', function(e) {
+                        try {
+                            dat = JSON.parse(e.target.response);
+                            console.log(dat);
+                            Alpine.store(dat['location'], dat);
+                        } catch {
+                            console.log("Failed to parse connection JSON");
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html> 
