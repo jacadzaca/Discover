@@ -1,0 +1,32 @@
+{
+  "version": 0.1,
+  "name": "My website",
+  "image":"https://my.website/img/me.webp",
+  "location": "https://my.website",
+  "resources": [
+    {
+    "label": "RSS Feed",
+    "icon": "",
+    "location": "https://my.website.com/rss.xml",
+    "description": "Stay up to date!"
+    }
+  ],
+  "connection_groups":{
+    "Group1":[
+        "https://heaventree.xyz"
+    ],
+    "Group2":[
+      "https://libresolutions.network"
+    ],
+    "Group3":["https://small-web.org"]
+  },
+  "connections": [
+    "https://tomfasano.net",
+    "https://codeberg.org"
+  ],
+  "contact": {
+    "e-mail": "contact@my.website",
+    "xmpp": "me@xmpp.chat",
+    "snail-mail": "PO Box 123, Smith Street, WN 12345"
+  }
+}
