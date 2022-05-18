@@ -27,6 +27,6 @@
   "contact": {
     "e-mail": "contact@my.website",
     "xmpp": "me@xmpp.chat",
-    "PO Box": "PO Box 123, Smith Street, WN 12345"
+    "snail-mail": "PO Box 123, Smith Street, WN 12345"
   }
 }

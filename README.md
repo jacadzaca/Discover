@@ -11,9 +11,6 @@ This means:
 * Extensible
 * Machine Readable
 
-### Protocol neutrality
-Porting over to TOR/Gopher/IPFS/etc should be relatively simple
-
 Follow these steps and you're online!
 
 1) Grab the [example json file](https://codeberg.org/onasaft/Discover/src/branch/master/Client/.well-known/discover)
