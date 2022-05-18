@@ -13,7 +13,7 @@ This means:
 
 Follow these steps to enter the network:
 
-1) Grab the [example json file](https://codeberg.org/onasaft/Discover/src/branch/master/Client/.well-known/discover)
+1) Grab the [example json file](https://codeberg.org/onasaft/Discover/src/branch/master/.well-known/discover)
 2) [Check out the docs](https://codeberg.org/onasaft/Discover/src/branch/master/Docs/README.md)
 3) Modify it with your data
 4) Serve that file from **your.website/.well-known/discover**
