@@ -20,52 +20,52 @@ div {
     flex-direction: column;
     align-items: center;
 }
-.interverse {
+.discover {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100vw;
     font-size: 1.5rem;
 }
-#interverse-details {
+#discover-details {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-#interverse-details * {
+#discover-details * {
     margin: 0.25rem;
 }
-#interverse-contact {
+#discover-contact {
     word-wrap: break-word;
 }
-#interverse-details img {
+#discover-details img {
     max-width: 15rem;
     max-height: 15rem;
 }
-#interverse-resources {
+#discover-resources {
     flex-wrap: wrap;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
 }
-.interverse-resource {
+.discover-resource {
     padding: 2rem;
     max-width: 15rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.interverse-resource-icon {
+.discover-resource-icon {
     height: 3rem;
     width: 3rem;
 }
-#interverse-groups {
+#discover-groups {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
 }
-.interverse-group {
+.discover-group {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -75,28 +75,28 @@ div {
 h1 {
     text-align: center;
 }
-#interverse-connections {
+#discover-connections {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-evenly;
 }
-#interverse-groups,
-#interverse-connections {
+#discover-groups,
+#discover-connections {
     margin-left: 10vw;
     margin-right: 10vw;
 }
-.interverse-connection {
+.discover-connection {
     width: fit-content;
     padding: 1rem;
     margin: 0.25rem;
 }
-.interverse-connection-preview {
+.discover-connection-preview {
     display: flex;
     flex-direction: column;
 }
-.interverse-widget {
+.discover-widget {
     width: 50vw;
     height: 60vh;
 }
