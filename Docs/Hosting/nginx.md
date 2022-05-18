@@ -1,3 +1,4 @@
+```
 location / {
     #...
     if ($request_method = 'OPTIONS') {
@@ -41,3 +42,5 @@ location / {
     }
     #...
 }
+
+```

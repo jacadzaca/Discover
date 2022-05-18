@@ -12,12 +12,12 @@ This means:
 * Machine Readable
 
 ### Protocol neutrality
-Porting over to TOR/Gopher/IPFS/ect should be relatively simple
+Porting over to TOR/Gopher/IPFS/etc should be relatively simple
 
 Follow these steps and you're online!
 
-1) Grab the [example json file](/Client/.well-known/discover)
-2) [Check out the docs](Docs/readme.md)
+1) Grab the [example json file](https://codeberg.org/onasaft/Discover/src/branch/master/Client/.well-known/discover)
+2) [Check out the docs](https://codeberg.org/onasaft/Discover/src/branch/master/Docs/README.md)
 3) Modify it with your data
 4) Serve that file from **your.website/.well-known/discover**
 5) Enable CORS for your website in [/etc/nginx/sites-enabled/your.website](/Docs/Hosting/nginx.md)
