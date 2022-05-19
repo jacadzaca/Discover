@@ -1,10 +1,8 @@
 # Discover
 
-A simple solution to site discovery. Build networks by choosing who you endorse.
+A simple solution to site discovery. Build networks by choosing who you endorse. Everyone owns their data.
 
-The data which you present yourself with is owned by you, and can be accessed across any site which is hosting the client.
-
-This means:
+Simple means:
 * No complicated software to run (beyond an existing website)
 * No Cryptocurrency/NFT
 * Scalable
