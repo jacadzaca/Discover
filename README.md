@@ -2,7 +2,7 @@
 
 A simple solution to site discovery. Build networks by choosing who you endorse.
 
-The data which you present yourself with is owned by you, and can be accessed across any site which actively promotes it.
+The data which you present yourself with is owned by you, and can be accessed across any site which is hosting the client.
 
 This means:
 * No complicated software to run (beyond an existing website)
@@ -23,9 +23,11 @@ https://tomfasano.net/discover?url=your.website
 
 ### How do I run the client on my website?
 
+1) Clone this repo
 1) Navigate to your webroot
-2) Make a subdirectory called discover
-3) Copy the contents of the [Client](Client/) folder into `discover`
+3) Make a subdirectory called discover
+4) Copy the contents of the [Client](Client/) folder into `discover`
+5) You could symbolic link the Client folder to `discover` to make pulling new updates less of a hassle
 
 ## Credits
 Fork of [Interverse](https://codeberg.org/gabe/Interverse)
