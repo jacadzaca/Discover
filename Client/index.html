@@ -12,7 +12,9 @@
       <div id="discover-details">
         <img x-bind:src="Alpine.store('data')['image']">
         <div id="discover-contact">
-          <h1 x-text="Alpine.store('data')['name']"></h1>
+          <a x-bind:href="Alpine.store('data')['location']">
+            <h1 x-text="Alpine.store('data')['name']"></h1>
+          </a>
           <template x-for="key in Object.keys(Alpine.store('data')['contact'])">
             <p>
               <strong x-text="key"></strong>
