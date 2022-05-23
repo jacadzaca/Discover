@@ -1,22 +1,41 @@
 #!/bin/sh
-#
-# CGI script for discover protocol
 
 echo "Content-type: text/html"
 echo
 
+echo "
+<head>
+    <style>
+        body img {max-width: 400px}
+    </style>
+    <title>Discover</title>
+</head>"
+
 site=$(echo "$QUERY_STRING" | sed -n 's/^.*url=\([^&]*\).*$/\1/p' | sed "s/%20/ /g" | sed "s/+/ /g")
 [ $site -z ] && site=$HTTP_HOST
-json=$(curl "https://$site/.well-known/discover")
+json=$(curl -s "https://$site/.well-known/discover")
 
 parse()
 {
-    echo $(echo $json | python -c "import json,sys;obj=json.load(sys.stdin);print(obj['$1']);")
+    echo $1 | jq --raw-output ".$2"
     return
 }
 
-parse name
+fetchImage()
+{
+    remoteJson=$(curl "$1/.well-known/discover")
+    echo $(parse "$remoteJson" image)
+    return
+}
+
+echo "<body>"
+echo "<h1><a href='$(parse "$json" location)'>$(parse "$json" name)</a></h1>"
 echo
-echo "<img src='$(parse image)'>"
+echo "<img src='$(parse "$json" image)'>"
+#echo "<img src='$(fetchImage https://heaventree.xyz)'>"
+echo "</body>"
+
+#parse "$json" connection_groups
+#parse "$json" "contact xmpp"
 
 exit 0
