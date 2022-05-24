@@ -1,41 +1,75 @@
 #!/bin/sh
+#
+# https://codeberg.org/onasaft/discover
 
 echo "Content-type: text/html"
 echo
+echo "<!DOCTYPE html>"
 
 echo "
 <head>
     <style>
-        body img {max-width: 400px}
+        html {margin: auto}
+        img {max-width: 400px}
     </style>
     <title>Discover</title>
 </head>"
 
 site=$(echo "$QUERY_STRING" | sed -n 's/^.*url=\([^&]*\).*$/\1/p' | sed "s/%20/ /g" | sed "s/+/ /g")
 [ $site -z ] && site=$HTTP_HOST
-json=$(curl -s "https://$site/.well-known/discover")
+json=$(curl -s "https://"$site"/.well-known/discover")
 
 parse()
 {
-    echo $1 | jq --raw-output ".$2"
+    echo $1 | jq -r "$2"
     return
 }
 
 fetchImage()
 {
     remoteJson=$(curl "$1/.well-known/discover")
-    echo $(parse "$remoteJson" image)
+    echo "<img src='"$(parse "$remoteJson" .image)"' >"
     return
 }
 
 echo "<body>"
-echo "<h1><a href='$(parse "$json" location)'>$(parse "$json" name)</a></h1>"
-echo
-echo "<img src='$(parse "$json" image)'>"
-#echo "<img src='$(fetchImage https://heaventree.xyz)'>"
-echo "</body>"
+echo "<h1><a href='$(parse "$json" .location)'>$(parse "$json" .name)</a></h1>"
 
-#parse "$json" connection_groups
-#parse "$json" "contact xmpp"
+# Contact
+contact=$(parse "$json" ".contact")
+i=0
+while true
+do
+    what=$(parse "$contact" "to_entries["$i"] .key")
+    [ "$what" = "null" ] && break
+    where=$(parse "$contact" "to_entries["$i"] .value")
+    echo "<p>"
+    echo "<strong>$what</strong>"
+    echo "<em>$where</em>"
+    echo "</p>"
+    i=$(($i+1))
+done
+echo "<img src='$(parse "$json" .image)'>"
+
+# Resources
+i=0
+echo "<p>&ndash;"
+while true
+do
+    resource=$(parse "$json" ".resources["$i"]")
+    [ "$resource" = "null" ] && break
+    label=$(parse "$resource" .label)
+    location=$(parse "$resource" .location)
+    descr=$(parse "$resource" .description)
+    echo "<a href="$location" title=\"$descr\" >"$label"</a> &ndash;"
+    #echo
+    i=$(($i+1))
+done
+echo "</p>"
+
+# Connection Groups
+#fetchImage https://heaventree.xyz
+
+echo "</body>"
 
 exit 0
