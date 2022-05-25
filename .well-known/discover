@@ -1,7 +1,7 @@
 {
   "version": 0.1,
   "name": "My website",
-  "image":"https://my.website/img/me.webp",
+  "image":"https://my.website/assets/me.webp",
   "location": "https://my.website",
   "resources": [
     {
@@ -9,24 +9,34 @@
     "icon": "",
     "location": "https://my.website.com/rss.xml",
     "description": "Stay up to date!"
+    },
+    {
+    "label": "My music",
+    "icon": "",
+    "location": "https://my.website.com/music.html",
+    "description": "Click to listen"
     }
   ],
   "connection_groups":{
-    "Group1":[
-        "https://heaventree.xyz"
+    "Discover Today":[
+        "https://heaventree.xyz",
+        "https://tomfasano.net"
     ],
-    "Group2":[
-      "https://libresolutions.network"
+    "Tech":[
+      "https://libresolutions.network",
+      "https;//lukesmith.xyz"
     ],
-    "Group3":["https://small-web.org"]
+    "Group3":[
+    "https://small-web.org"
+    ]
   },
   "connections": [
-    "https://tomfasano.net",
+    "https://gnu.org",
     "https://codeberg.org"
   ],
   "contact": {
-    "e-mail": "contact@my.website",
+    "email": "contact@my.website",
     "xmpp": "me@xmpp.chat",
-    "snail-mail": "PO Box 123, Smith Street, WN 12345"
+    "USPS": "PO Box 123, Smith Street, WN 12345"
   }
 }
