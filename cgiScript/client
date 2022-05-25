@@ -1,0 +1,115 @@
+#!/bin/sh
+#
+# Dependencies: jq, curl
+
+echo "Content-type: text/html"
+echo
+echo "<!DOCTYPE html>"
+
+echo "
+<head>
+    <link rel='stylesheet' type='text/css' href='/theme.css'>
+    <title>Discover</title>
+</head>"
+
+site=$(echo "$QUERY_STRING" | sed -n 's/^.*url=\([^&]*\).*$/\1/p' | sed "s/%20/ /g" | sed "s/+/ /g")
+[ $site -z ] && site=$HTTP_HOST
+json=$(curl -s "https://"$site"/.well-known/discover")
+
+parse()
+{
+    echo $1 | jq -r "$2"
+    return
+}
+
+preview()
+{
+    res=$(curl -sD /dev/stdout "$1/.well-known/discover")
+    code=$(echo "$res" | sed '/^\s*$/q' | grep HTTP | cut -d ' ' -f2)
+    remote=$(echo "$res" | sed '1,/^\s*$/d')
+    [ $code = 200 ] && name=$(parse "$remote" .name) && image=$(parse "$remote" .image) \
+    && echo "<strong>"$name"</strong>" && \
+    echo "<a href="?url="$(echo "$1" | cut -d / -f 3)""><img src='"$image"' ></a>"
+    return
+}
+
+echo "<body>"
+echo "<nav>"
+echo "<h1><a href='$(parse "$json" .location)'>$(parse "$json" .name)</a></h1>"
+
+## Contact
+contact=$(parse "$json" ".contact")
+i=0
+while true
+do
+    what=$(parse "$contact" "to_entries["$i"] .key")
+    [ "$what" = "null" ] && break
+    where=$(parse "$contact" "to_entries["$i"] .value")
+    echo "<p>"
+    echo "<strong>$what</strong>"
+    echo "<em>$where</em>"
+    echo "</p>"
+    i=$(($i+1))
+done
+echo "<img src='$(parse "$json" .image)'>"
+
+## Resources
+i=0
+echo "<h2>Website Content</h2>"
+echo "<ul>"
+while true
+do
+    resource=$(parse "$json" ".resources["$i"]")
+    [ "$resource" = "null" ] && break
+    label=$(parse "$resource" .label)
+    location=$(parse "$resource" .location)
+    descr=$(parse "$resource" .description)
+    echo "<li><a href="$location" title=\"$descr\" >"$label"</a></li>"
+    i=$(($i+1))
+done
+echo "</ul>"
+echo "</nav>"
+
+## Connection Groups
+echo "<main>"
+i=0;
+groups=$(parse "$json" ".connection_groups")
+while true
+do
+    j=0
+    group=$(parse "$groups" "to_entries["$i"] .key")
+    [ "$group" = "null" ] && break
+    echo "<h3>"$group"</h3>"
+    echo "<ul>"
+    while true
+    do
+        connection=$(parse "$groups" "to_entries["$i"] .value["$j"]")
+        [ "$connection" = "null" ] && break
+        echo "<li>"
+        preview "$connection"
+        echo "<a href="$connection" >"$connection"</a>"
+        echo "</li>"
+        j=$(($j+1))
+    done
+    echo "</ul>"
+    i=$(($i+1))
+done
+
+## Connections
+i=0;
+links=$(parse "$json" ".connections")
+echo "<h3>Links</h3>"
+echo "<ul>"
+while true
+do
+    link=$(parse "$links" ".["$i"]")
+    [ "$link" = "null" ] && break
+    #fetchImage "$link"
+    echo "<li><a href="$link" > "$link" </a></li>"
+    i=$(($i+1))
+done
+echo "</ul>"
+echo "</main>"
+echo "</body>"
+
+exit 0

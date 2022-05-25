@@ -60,7 +60,6 @@ This field is intended to feature content on your website.
 
 Fields:
 * **label**: *string* The label for the resource
-* **icon** *url string* The icon for the resource
 * **location** *url string* The location of the resource
 * **description** *string* the description of the resource
 
@@ -97,4 +96,4 @@ Any contact information you wish to share.
 
 ---
 
-If you have any questions don't hesitate to e-mail gabriel@libresolutions.network
+If you have any questions don't hesitate to contact [tom](https://tomfasano.net/contact)
