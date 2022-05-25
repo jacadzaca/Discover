@@ -28,14 +28,16 @@ preview()
     code=$(echo "$res" | sed '/^\s*$/q' | grep HTTP | cut -d ' ' -f2)
     [ $code = 200 ] && remote=$(echo "$res" | sed '1,/^\s*$/d') \
         && name=$(parse "$remote" .name) && image=$(parse "$remote" .image) \
-        && echo "<strong>"$name"</strong>" && \
-    echo "<a href="?url="$(echo "$1" | cut -d / -f 3)""><img src='"$image"' ></a>"
+        && echo "<strong>"$name"</strong>" \
+        && echo "<a href="?url="$(echo "$1" | cut -d / -f 3)""><img src='"$image"' ></a>"
     return
 }
 
 echo "<body>"
 echo "<nav>"
-echo "<h1><a href='$(parse "$json" .location)'>$(parse "$json" .name)</a></h1>"
+echo "<h1>$(parse "$json" .name)</h1>"
+homepage=$(parse "$json" .location)
+echo "(<a href="$homepage">"$homepage"</a>)"
 
 ## Contact
 contact=$(parse "$json" ".contact")
@@ -87,7 +89,7 @@ do
         [ "$connection" = "null" ] && break
         echo "<li>"
         preview "$connection"
-        echo "<a href="$connection" >"$connection"</a></li>"
+        echo "<a href="$conection">"$connection"</a></li>"
         j=$(($j+1))
     done
     echo "</ul>"
@@ -105,7 +107,7 @@ do
     [ "$link" = "null" ] && break
     echo "<li>"
     preview "$link"
-    echo "<a href="$link" > "$link" </a></li>"
+    echo "<a href="$link">"$link"</a></li>"
     i=$(($i+1))
 done
 echo "</ul>"
