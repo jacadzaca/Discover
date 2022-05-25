@@ -89,7 +89,7 @@ do
         [ "$connection" = "null" ] && break
         echo "<li>"
         preview "$connection"
-        echo "<a href="$conection">"$connection"</a></li>"
+        echo "<a href="$connection">"$connection"</a></li>"
         j=$(($j+1))
     done
     echo "</ul>"
