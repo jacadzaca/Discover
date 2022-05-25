@@ -8,7 +8,7 @@ echo "<!DOCTYPE html>"
 
 echo "
 <head>
-    <link rel='stylesheet' type='text/css' href='/theme.css'>
+    <link rel='stylesheet' type='text/css' href='/discover.css'>
     <title>Discover</title>
 </head>"
 
@@ -26,9 +26,9 @@ preview()
 {
     res=$(curl -sD /dev/stdout "$1/.well-known/discover")
     code=$(echo "$res" | sed '/^\s*$/q' | grep HTTP | cut -d ' ' -f2)
-    remote=$(echo "$res" | sed '1,/^\s*$/d')
-    [ $code = 200 ] && name=$(parse "$remote" .name) && image=$(parse "$remote" .image) \
-    && echo "<strong>"$name"</strong>" && \
+    [ $code = 200 ] && remote=$(echo "$res" | sed '1,/^\s*$/d') \
+        && name=$(parse "$remote" .name) && image=$(parse "$remote" .image) \
+        && echo "<strong>"$name"</strong>" && \
     echo "<a href="?url="$(echo "$1" | cut -d / -f 3)""><img src='"$image"' ></a>"
     return
 }
@@ -87,8 +87,7 @@ do
         [ "$connection" = "null" ] && break
         echo "<li>"
         preview "$connection"
-        echo "<a href="$connection" >"$connection"</a>"
-        echo "</li>"
+        echo "<a href="$connection" >"$connection"</a></li>"
         j=$(($j+1))
     done
     echo "</ul>"
@@ -104,8 +103,9 @@ while true
 do
     link=$(parse "$links" ".["$i"]")
     [ "$link" = "null" ] && break
-    #fetchImage "$link"
-    echo "<li><a href="$link" > "$link" </a></li>"
+    echo "<li>"
+    preview "$link"
+    echo "<a href="$link" > "$link" </a></li>"
     i=$(($i+1))
 done
 echo "</ul>"
