@@ -1,0 +1,16 @@
+nav,main{
+   float:left;
+   padding: 1em
+}
+nav {max-width: 34em}
+img {max-width: 15rem}
+main li {
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left
+}
+@media(min-width: 1400px){main ul {column-count: 3}}
+@media(max-width: 1400px){main ul {column-count: 2}}
+@media(max-width:  700px){main ul {column-count: 1}}
