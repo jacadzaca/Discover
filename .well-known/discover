@@ -6,20 +6,18 @@
   "resources": [
     {
     "label": "RSS Feed",
-    "icon": "",
     "location": "https://my.website.com/rss.xml",
     "description": "Stay up to date!"
     },
     {
     "label": "My music",
-    "icon": "",
     "location": "https://my.website.com/music.html",
     "description": "Click to listen"
     }
   ],
   "connection_groups":{
-    "Discover Today":[
-        "https://heaventree.xyz",
+    "Cool People I totally Endorse":[
+        "https://gabe.rocks",
         "https://tomfasano.net"
     ],
     "Tech":[
