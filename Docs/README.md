@@ -1,8 +1,6 @@
 ## Requirements
 
 * You must serve valid JSON from `/.well-known/discover`
-* The header `access-control-allow-origin *` must also be [added](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
-* Use the nginx config snippet [here](https://codeberg.org/onasaft/Discover/src/branch/master/Docs/Hosting/nginx.md) to achieve this.
 
 **Links**
 * All links must be absolute links
