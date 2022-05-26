@@ -42,19 +42,7 @@ The url for your website
 ### resources
 *resource object*
 
-This field is intended to feature content on your website.
-
-### resource_groups
-*resource groups*
-
-```
-{
-    "Group1":[resource object,..],
-    "Group2":...
-}
-```
-
-**resource object:**
+This is intended to feature content on your website.
 
 Fields:
 * **label**: *string* The label for the resource
