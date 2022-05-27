@@ -1,4 +1,4 @@
-# Discover
+# Dynamic Discover Directories
 
 A simple solution to site discovery. Build networks by choosing who you endorse. Everyone owns their data.
 
