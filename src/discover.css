@@ -1,16 +1,14 @@
+nav {max-width: 34em}
 nav,main{
    float:left;
    padding: 1em
 }
-nav {max-width: 34em}
-img {max-width: 15rem}
-main li {
-    padding: 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 2em;
+img {
+  max-width: 12rem;
+  min-width: 12rem;
+  padding: 1em;
 }
-@media(min-width: 1400px){main ul {column-count: 3}}
-@media(max-width: 1400px){main ul {column-count: 2}}
-@media(max-width:  700px){main ul {column-count: 1}}
+main li {
+  display: flex;
+  align-items: center;
+}
