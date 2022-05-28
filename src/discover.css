@@ -9,7 +9,7 @@ main li {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: left
+    min-height: 2em;
 }
 @media(min-width: 1400px){main ul {column-count: 3}}
 @media(max-width: 1400px){main ul {column-count: 2}}
