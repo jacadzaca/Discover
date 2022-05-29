@@ -32,5 +32,7 @@ https://tomfasano.net/discover.html?url=your.website
 Now go to `your.website/discover.html`
 You should see your json file displayed as a webpage, as well as previews of other people's sites you chose to connect with.
 
+**It's recommended to use a json linter before publishing your data**
+
 ## Credits
 Fork of [Interverse](https://codeberg.org/gabe/Interverse)
