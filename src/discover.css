@@ -1,14 +1,30 @@
-nav {max-width: 34em}
-nav,main{
-   float:left;
-   padding: 1em
+body {
+	display: flex;
 }
-img {
-  max-width: 12rem;
-  min-width: 12rem;
-  padding: 1em;
+nav {
+	float: left;
+	min-width: 12rem;
+}
+nav img {
+	max-width: 12rem;
+	max-height: 12rem;
+}
+nav, main {
+	padding: 1rem;
+}
+main img {
+	max-width: 10rem;
+	max-height: 10rem;
+}
+main ul {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	flex-wrap: wrap;
+	justify-content: flex-start;
 }
 main li {
-  display: flex;
-  align-items: center;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
 }
