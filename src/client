@@ -41,77 +41,42 @@ echo "<h1>"$name"</h1>"
 echo "(<a href=\""$homepage"\">"$homepage"</a>)"
 
 ## Contact
-contact=$(parse "$json" ".contact")
-i=0
-while true
-do
-    what=$(parse "$contact" "to_entries["$i"] .key")
-    [ "$what" = "null" ] && break
-    where=$(parse "$contact" "to_entries["$i"] .value")
-    echo "<p>"
-    echo "<strong>$what</strong>"
-    echo "<em>$where</em>"
-    echo "</p>"
-    i=$(($i+1))
-done
+echo "$json" | jq -r '.contact | to_entries | map("<p>" + "<strong>" + .key + "</strong>" + "<em>" + .value + "</em>" + "</p>") | join("\n")'
 echo "<img src=\""$image_url"\">"
 
 ## Resources
-i=0
 echo "<h2>Website Content</h2>"
 echo "<ul>"
-while true
-do
-    resource=$(parse "$json" ".resources["$i"]")
-    [ "$resource" = "null" ] && break
-    label=$(parse "$resource" .label)
-    location=$(parse "$resource" .location)
-    descr=$(parse "$resource" .description)
-    echo "<li><a href="$location" title=\"$descr\" >"$label"</a></li>"
-    i=$(($i+1))
-done
+echo "$json" | jq -r '.resources | map("<li>" + "<a href=\"" + .location + " title=\"" + .description + "\">" + .label + "</a></li>") | join("\n")'
 echo "</ul>"
 echo "</nav>"
 
 ## Connection Groups
 echo "<main>"
-i=0;
-groups=$(parse "$json" ".connection_groups")
-while true
-do
-    j=0
-    group=$(parse "$groups" "to_entries["$i"] .key")
-    [ "$group" = "null" ] && break
-    echo "<h3>"$group"</h3>"
+
+echo "$json" | jq -r '.connection_groups | to_entries | map([.key] + .value) | map(join(",")) | join("\n")' | while read -r line; do
+    name=$(echo "$line" | cut -f1 -d ',')
+    echo "<h3>$name</h3>"
     echo "<ul>"
-    while true
-    do
-        connection=$(parse "$groups" "to_entries["$i"] .value["$j"]")
-        [ "$connection" = "null" ] && break
+    for url in $(echo "$line" | cut -f2- -d ',' | tr ',' ' '); do
         echo "<li>"
-        preview "$connection"
-        echo "<a href="$connection">"$connection"</a></li>"
-        j=$(($j+1))
+        preview "$url"
+        echo "<a href="$url">"$url"</a></li>"
     done
     echo "</ul>"
-    i=$(($i+1))
 done
 
 ## Connections
-i=0;
-links=$(parse "$json" ".connections")
 echo "<h3>Links</h3>"
 echo "<ul>"
-while true
-do
-    link=$(parse "$links" ".["$i"]")
-    [ "$link" = "null" ] && break
+
+echo "$json" | jq -r '.connections | join("\n")' | while read -r url; do
     echo "<li>"
-    preview "$link"
-    echo "<a href="$link">"$link"</a></li>"
-    i=$(($i+1))
+    preview "$url"
+    echo "<a href="$url">"$url"</a></li>"
 done
 echo "</ul>"
+
 echo "</main>"
 echo "</body>"
 
