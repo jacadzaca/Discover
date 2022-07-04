@@ -33,11 +33,12 @@ preview()
     return
 }
 
+read -d "\n" -p -r name homepage image_url <<< $(echo "$json" | jq -r '.name, .location, .image')
+
 echo "<body>"
 echo "<nav>"
-echo "<h1>$(parse "$json" .name)</h1>"
-homepage=$(parse "$json" .location)
-echo "(<a href="$homepage">"$homepage"</a>)"
+echo "<h1>"$name"</h1>"
+echo "(<a href=\""$homepage"\">"$homepage"</a>)"
 
 ## Contact
 contact=$(parse "$json" ".contact")
@@ -53,7 +54,7 @@ do
     echo "</p>"
     i=$(($i+1))
 done
-echo "<img src='$(parse "$json" .image)'>"
+echo "<img src=\""$image_url"\">"
 
 ## Resources
 i=0
@@ -114,4 +115,3 @@ echo "</ul>"
 echo "</main>"
 echo "</body>"
 
-exit 0
