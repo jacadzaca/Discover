@@ -24,16 +24,16 @@ preview()
     fi
 }
 
-read -d "\n" -p -r name homepage image_url <<< $(echo "$json" | jq -r '.name, .location, .image')
+read -d "\n" -p -r name homepage image_url <<< "$(echo "$json" | jq -r '.name, .location, .image')"
 
 echo "<body>"
 echo "<nav>"
-echo "<h1>"$name"</h1>"
-echo "(<a href=\""$homepage"\">"$homepage"</a>)"
+echo "<h1>$name</h1>"
+echo "(<a href=\"$homepage\">$homepage</a>)"
 
 ## Contact
 echo "$json" | jq -r '.contact | to_entries | map("<p>" + "<strong>" + .key + "</strong>" + "<em>" + .value + "</em>" + "</p>") | join("\n")'
-echo "<img src=\""$image_url"\">"
+echo "<img src=\"$image_url\">"
 
 ## Resources
 echo "<h2>Website Content</h2>"
@@ -52,7 +52,7 @@ echo "$json" | jq -r '.connection_groups | to_entries | map([.key] + .value) | m
     for url in $(echo "$line" | cut -f2- -d ',' | tr ',' ' '); do
         echo "<li>"
         preview "$url"
-        echo "<a href="$url">"$url"</a></li>"
+        echo "<a href=\"$url\">$url</a></li>"
     done
     echo "</ul>"
 done
@@ -64,7 +64,7 @@ echo "<ul>"
 echo "$json" | jq -r '.connections | join("\n")' | while read -r url; do
     echo "<li>"
     preview "$url"
-    echo "<a href="$url">"$url"</a></li>"
+    echo "<a href=\"$url\">$url</a></li>"
 done
 echo "</ul>"
 
