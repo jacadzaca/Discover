@@ -16,21 +16,12 @@ site=$(echo "$QUERY_STRING" | sed -n 's/^.*url=\([^&]*\).*$/\1/p' | sed "s/%20/ 
 [ $site -z ] && site=$HTTP_HOST
 json=$(curl -s "https://"$site"/.well-known/discover")
 
-parse()
-{
-    echo $1 | jq -r "$2"
-    return
-}
-
 preview()
 {
-    res=$(curl -sD /dev/stdout "$1/.well-known/discover")
-    code=$(echo "$res" | sed '/^\s*$/q' | grep HTTP | cut -d ' ' -f2)
-    [ $code = 200 ] && remote=$(echo "$res" | sed '1,/^\s*$/d') \
-        && name=$(parse "$remote" .name) && image=$(parse "$remote" .image) \
-        && echo "<strong>"$name"</strong>" \
-        && echo "<a href="?url="$(echo "$1" | cut -d / -f 3)""><img src='"$image"' ></a>"
-    return
+    if response=$(curl -sf "$1/.well-known/discover");
+    then
+        echo "$response" | jq -r '"<strong>" + .name + "</strong><a href=\"?url=" + .location[8:] + "\"><img src=\"" + .image + "\"></a>"' 2> /dev/null
+    fi
 }
 
 read -d "\n" -p -r name homepage image_url <<< $(echo "$json" | jq -r '.name, .location, .image')
